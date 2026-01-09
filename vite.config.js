@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
   server: {
@@ -10,5 +11,15 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['onnxruntime-web']
-  }
+  },
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: 'node_modules/onnxruntime-web/dist/*.wasm',
+          dest: '.'
+        }
+      ]
+    })
+  ]
 });
